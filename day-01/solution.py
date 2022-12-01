@@ -1,12 +1,9 @@
-f = open('Input.txt', 'r')
-
-lines = f.readlines()
+lines = open('Input.txt', 'r').readlines()
 
 totals = list()
 currentTotal = 0
 for line in lines:
-    line = line.rstrip()
-    if line != '':
+    if line.rstrip() != '':
         currentTotal = currentTotal + int(line)
     else:
         totals.append(currentTotal)
