@@ -1,13 +1,13 @@
-lines = open('Input.txt', 'r').readlines()
+lines = open('input.txt', 'r').readlines()
 
 totals = list()
-currentTotal = 0
+current_total = 0
 for line in lines:
     if line.rstrip() != '':
-        currentTotal = currentTotal + int(line)
+        current_total += int(line)
     else:
-        totals.append(currentTotal)
-        currentTotal = 0
+        totals.append(current_total)
+        current_total = 0
 
 # Part 1 answer
 print(max(totals))
