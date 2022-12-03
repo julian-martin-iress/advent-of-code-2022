@@ -1,9 +1,10 @@
 rock, paper, scissors = 'A', 'B', 'C'
 lose, draw, win = 0, 3, 6
-gesture_map = {'X': rock, 'Y': paper, 'Z': scissors }
-outcome_map = {'X': lose, 'Y': draw, 'Z': win }
 gesture_scores = {rock: 1, paper: 2, scissors: 3}
 this_beats_that = [[rock, scissors], [scissors, paper], [paper, rock]]
+
+part1_gesture_map = {'X': rock, 'Y': paper, 'Z': scissors }
+part2_outcome_map = {'X': lose, 'Y': draw, 'Z': win }
 
 def play(their_gesture, my_gesture):
     if their_gesture == my_gesture:
@@ -31,8 +32,8 @@ score_part_2 = 0
 
 for line in lines:
     their_gesture, xyz = line.split()
-    score_part_1 += score_part1_round(their_gesture, gesture_map[xyz])
-    score_part_2 += score_part2_round(their_gesture, outcome_map[xyz])
+    score_part_1 += score_part1_round(their_gesture, part1_gesture_map[xyz])
+    score_part_2 += score_part2_round(their_gesture, part2_outcome_map[xyz])
 
 print(score_part_1) # 13268
 print(score_part_2) # 15508
