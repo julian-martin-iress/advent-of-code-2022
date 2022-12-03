@@ -13,9 +13,9 @@ def play(their_gesture, my_gesture):
 def how_to_get(outcome, their_gesture):
     if outcome == draw:
         return their_gesture
-    if outcome == win:
-        return next(gesture[0] for gesture in this_beats_that if gesture[1] == their_gesture)
-    return next(gesture[1] for gesture in this_beats_that if gesture[0] == their_gesture)
+    
+    i, j = (0, 1) if outcome == win else (1, 0)
+    return next(gesture[i] for gesture in this_beats_that if gesture[j] == their_gesture)
 
 def score_part1_round(their_gesture, my_gesture):
     return gesture_scores[my_gesture] + play(their_gesture, my_gesture)
