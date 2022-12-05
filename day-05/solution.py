@@ -13,13 +13,15 @@ def run_it(crate_mover_model):
             stacks_data.append(line.replace("[", " ").replace("]"," ").replace("\n", ""))
 
         if read_mode == "commands":
-            how_many, from_stack, to_stack = map(int, line.replace("move ", "").replace("from ", "").replace("to ", "").split(" "))
+            num, from_stack, to_stack = map(int, line.replace("move ", "").replace("from ", "").replace("to ", "").split(" "))
+            from_index = from_stack -1
+            to_index = to_stack -1
             # do the move
-            item_to_move = stacks[from_stack-1][-how_many:]
+            items_to_move = stacks[from_index][-num:]
             if (crate_mover_model == 9000):
-                item_to_move.reverse()
-            stacks[from_stack-1] = stacks[from_stack-1][:-how_many]
-            stacks[to_stack-1].extend(item_to_move)
+                items_to_move.reverse()
+            stacks[from_index] = stacks[from_index][:-num]
+            stacks[to_index].extend(items_to_move)
         
     top_items = ""
     for stack in stacks:
