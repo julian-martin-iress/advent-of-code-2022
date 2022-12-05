@@ -1,4 +1,8 @@
-lines = open('input.txt', 'r').readlines()
+"""
+Solution for day 01
+"""
+
+lines = open('./day-01/input.txt', 'r', encoding="utf-8").readlines()
 
 totals = list()
 current_total = 0

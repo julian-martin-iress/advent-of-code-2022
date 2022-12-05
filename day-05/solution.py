@@ -1,8 +1,13 @@
+"""
+Solution for day 05
+"""
+
 def run_it(crate_mover_model):
+    """ Runs the simulation """
     read_mode = "stacks"
     stacks_data = list()
 
-    for line in open('input.txt', 'r').readlines():
+    for line in open('./day-05/input.txt', 'r', encoding="utf-8").readlines():
         if line.rstrip() == '':
             # blank line at end of reading stacks
             stacks = transform(stacks_data)
@@ -18,18 +23,19 @@ def run_it(crate_mover_model):
             to_index = to_stack -1
             # do the move
             items_to_move = stacks[from_index][-num:]
-            if (crate_mover_model == 9000):
+            if crate_mover_model == 9000:
                 items_to_move.reverse()
             stacks[from_index] = stacks[from_index][:-num]
             stacks[to_index].extend(items_to_move)
-        
+
     top_items = ""
     for stack in stacks:
         top_items += stack[-1:][0]
-    
+
     return top_items
 
 def transform(stacks_data):
+    """ Transforms raw stacks_data into list of stacks """
     # read and remove last item (numbers row)
     stacks_numerals = stacks_data.pop()
 
@@ -39,7 +45,7 @@ def transform(stacks_data):
         stacks.append(list())
 
     stacks_data.reverse()
-    
+
     for item in stacks_data:
         col = 0
         for char in item:
@@ -47,7 +53,7 @@ def transform(stacks_data):
             if char != " ":
                 colToAdd = ((col + 2)//4)-1
                 stacks[colToAdd].append(char)
-                
+               
     return stacks
 
 print(run_it(9000)) #TPGVQPFDH

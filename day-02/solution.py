@@ -1,3 +1,7 @@
+"""
+Solution for day 02
+"""
+
 rock, paper, scissors = 'A', 'B', 'C'
 lose, draw, win = 0, 3, 6
 gesture_scores = {rock: 1, paper: 2, scissors: 3}
@@ -25,7 +29,7 @@ def score_part2_round(their_gesture, outcome):
     my_gesture = how_to_get(outcome, their_gesture)
     return gesture_scores[my_gesture] + outcome
 
-lines = open('input.txt', 'r').readlines()
+lines = open('./day-02/input.txt', 'r', encoding="utf-8").readlines()
 
 score_part_1 = 0
 score_part_2 = 0

@@ -1,3 +1,7 @@
+"""
+Solution for day 03
+"""
+
 import string
 
 alphabet_mapping = list(string.ascii_letters)
@@ -5,7 +9,7 @@ alphabet_mapping = list(string.ascii_letters)
 def score_for(char):
     return alphabet_mapping.index(char) + 1
 
-lines = open('input.txt', 'r').readlines()
+lines = open('./day-03/input.txt', 'r', encoding="utf-8").readlines()
 
 score_part_1 = 0
 
