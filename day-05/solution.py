@@ -1,18 +1,18 @@
 def run_it(crate_mover_model):
-    mode = "stacks"
+    read_mode = "stacks"
     stacks_data = list()
 
     for line in open('input.txt', 'r').readlines():
         if line.rstrip() == '':
-            # end of reading stacks
-            mode = "commands"
+            # blank line at end of reading stacks
             stacks = transform(stacks_data)
+            read_mode = "commands"
             continue
 
-        if mode == "stacks":
+        if read_mode == "stacks":
             stacks_data.append(line.replace("[", " ").replace("]"," ").replace("\n", ""))
 
-        if mode == "commands":
+        if read_mode == "commands":
             how_many, from_stack, to_stack = map(int, line.replace("move ", "").replace("from ", "").replace("to ", "").split(" "))
             # do the move
             item_to_move = stacks[from_stack-1][-how_many:]
@@ -28,13 +28,15 @@ def run_it(crate_mover_model):
     return top_items
 
 def transform(stacks_data):
-    # remove last item (numbers row)
-    stacks_data.pop()
-    # build a list for each stack
-    stacks_data.reverse()
+    # read and remove last item (numbers row)
+    stacks_numerals = stacks_data.pop()
+
+    # create a list of stacks, each stack being a list of items
     stacks = list()
-    for x in range(9):
+    for _ in range(len(stacks_numerals.split("   "))):
         stacks.append(list())
+
+    stacks_data.reverse()
     
     for item in stacks_data:
         col = 0
