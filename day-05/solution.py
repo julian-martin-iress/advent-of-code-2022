@@ -1,5 +1,4 @@
 def run_it(crate_mover_model):
-
     mode = "stacks"
     stacks_data = list()
 
@@ -7,21 +6,7 @@ def run_it(crate_mover_model):
         if line.rstrip() == '':
             # end of reading stacks
             mode = "commands"
-            # remove last item (numbers row)
-            stacks_data.pop()
-            # build a list for each stack
-            stacks_data.reverse()
-            stacks = list()
-            for x in range(9):
-                stacks.append(list())
-            
-            for item in stacks_data:
-                col = 0
-                for char in item:
-                    col += 1
-                    if char != " ":
-                        colToAdd = ((col + 2)//4)-1
-                        stacks[colToAdd].append(char)
+            stacks = transform(stacks_data)
             continue
 
         if mode == "stacks":
@@ -41,6 +26,25 @@ def run_it(crate_mover_model):
         top_items += stack[-1:][0]
     
     return top_items
+
+def transform(stacks_data):
+    # remove last item (numbers row)
+    stacks_data.pop()
+    # build a list for each stack
+    stacks_data.reverse()
+    stacks = list()
+    for x in range(9):
+        stacks.append(list())
+    
+    for item in stacks_data:
+        col = 0
+        for char in item:
+            col += 1
+            if char != " ":
+                colToAdd = ((col + 2)//4)-1
+                stacks[colToAdd].append(char)
+                
+    return stacks
 
 print(run_it(9000)) #TPGVQPFDH
 print(run_it(9001)) #DMRDFRHHH
