@@ -42,36 +42,18 @@ _rows = read_file('./day-08/input.txt')
 _columns = transform_to_columns(_rows)
 
 visible_count = 0
+tree_scores = list()
 
 for row_index, row in enumerate(_rows):
-    if row_index in (0, len(_rows) - 1):
-        # first and last row - all trees are visible
-        visible_count += len(_rows)
-        continue
-
     for column_index, tree in enumerate(row):
-        if column_index in (0, len(row) - 1):
-            # start or end of row - tree is visible
-            visible_count += 1
-            continue
-
-        # This is an "inner tree"
         left, right, up, down = \
             get_trees_in_all_directions(row, row_index, _columns[column_index], column_index)
 
+        # for part 1
         if is_tree_visible(tree, [left, right, up, down]):
             visible_count += 1
 
-# part 1
-print(visible_count) # 1543
-
-# part 2
-tree_scores = list()
-for row_index, row in enumerate(_rows):
-    for column_index, tree in enumerate(row):
-        left, right, up, down = \
-            get_trees_in_all_directions(row, row_index, _columns[column_index], column_index)
-
+        # for part 2
         v_left = distance_viewable(tree, left)
         v_right = distance_viewable(tree, right)
         v_up = distance_viewable(tree, up)
@@ -79,4 +61,8 @@ for row_index, row in enumerate(_rows):
 
         tree_scores.append(v_left * v_right * v_up * v_down)
 
+# part 1
+print(visible_count) # 1543
+
+# part 2
 print(max(tree_scores)) # 595080
