@@ -56,7 +56,9 @@ for row_index, row in enumerate(_rows):
             continue
 
         # This is an "inner tree"
-        left, right, up, down = get_trees_in_all_directions(row, row_index, _columns[column_index], column_index)
+        left, right, up, down = \
+            get_trees_in_all_directions(row, row_index, _columns[column_index], column_index)
+
         if is_tree_visible(tree, [left, right, up, down]):
             visible_count += 1
 
@@ -67,14 +69,14 @@ print(visible_count) # 1543
 tree_scores = list()
 for row_index, row in enumerate(_rows):
     for column_index, tree in enumerate(row):
-        trees_left, trees_right, trees_up, trees_down = \
+        left, right, up, down = \
             get_trees_in_all_directions(row, row_index, _columns[column_index], column_index)
 
-        left = distance_viewable(tree, trees_left)
-        right = distance_viewable(tree, trees_right)
-        up = distance_viewable(tree, trees_up)
-        down = distance_viewable(tree, trees_down)
+        v_left = distance_viewable(tree, left)
+        v_right = distance_viewable(tree, right)
+        v_up = distance_viewable(tree, up)
+        v_down = distance_viewable(tree, down)
 
-        tree_scores.append(left * right * up * down)
+        tree_scores.append(v_left * v_right * v_up * v_down)
 
 print(max(tree_scores)) # 595080
