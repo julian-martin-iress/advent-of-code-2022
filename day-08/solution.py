@@ -15,15 +15,6 @@ def transform_to_columns(rows):
 
     return columns
 
-def get_trees_in_all_directions(current_row, row_idx, current_column, col_idx):
-    ''' gets the trees in all 4 directions from the current tree position '''
-    tr_left = current_row[0:col_idx][::-1] # [::-1] reverses the string
-    tr_right = current_row[col_idx + 1:]
-    tr_up = current_column[0:row_idx][::-1] # [::-1] reverses the string
-    tr_down = current_column[row_idx + 1:]
-
-    return tr_left, tr_right, tr_up, tr_down
-
 def is_tree_visible(my_tree, tree_lists):
     ''' determines whether my tree is taller than all the trees in any of the lines '''
     for trees_in_line in tree_lists:
@@ -46,8 +37,12 @@ tree_scores = list()
 
 for row_index, row in enumerate(_rows):
     for column_index, tree in enumerate(row):
-        left, right, up, down = \
-            get_trees_in_all_directions(row, row_index, _columns[column_index], column_index)
+
+        # get trees in each direction
+        left = row[0:column_index][::-1] # [::-1] reverses the string
+        right = row[column_index + 1:]
+        up = _columns[column_index][0:row_index][::-1] # [::-1] reverses the string
+        down = _columns[column_index][row_index + 1:]
 
         # for part 1
         if is_tree_visible(tree, [left, right, up, down]):
