@@ -1,6 +1,7 @@
 """
 Solution for day 10
 """
+from check import check_answer
 
 def read_file(filename):
     ''' read the input data '''
@@ -42,7 +43,8 @@ part_1_total = 0
 points_of_interest = [20, 60, 100, 140, 180, 220]
 for i in points_of_interest:
     part_1_total += i * result1[i-1]
-print(part_1_total) # 14920
+
+check_answer(part_1_total, 14920)
 
 # part 2
 for crt in crts:
