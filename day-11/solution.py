@@ -1,6 +1,7 @@
 """
 Solution for day 11
 """
+from math import lcm
 from check import check_answer
 
 def read_file(filename):
@@ -45,7 +46,7 @@ class Monkey:
     def __init__(self, index):
         self.index = index
 
-    def do_turn(self, all_monkeys, worry_factor):
+    def do_turn(self, all_monkeys, worry_factor, modulus):
         ''' monkey takes a turn to process all their items '''
         for item in self.items:
 
@@ -58,8 +59,11 @@ class Monkey:
                 item *= item
             else: item *= int(self.operation_value)
 
-            # divide item by worry_factor
+            # divide item by worry_factor - part 1
             item = item // int(worry_factor)
+            # reduce item by modulo operation - part 2
+            if modulus > 0:
+                item = item % modulus
 
             # throw the item!
             target_monkey = self.true_result if item % int(self.test) == 0 else self.false_result
@@ -72,25 +76,22 @@ data = read_file('./day-11/input.txt')
 monkeys = parse_monkeys(data)
 for _ in range(20):
     for m in monkeys:
-        m.do_turn(monkeys, 3)
+        m.do_turn(monkeys, 3, 0)
 
 monkeys.sort(key=lambda x: x.inspect_count, reverse=True)
 
 part_1_total = monkeys[0].inspect_count * monkeys[1].inspect_count
-check_answer(part_1_total, 61503) # test 10605
+check_answer(part_1_total, 61503) # real: 61503 test: 10605
 
 
-# # part 2
-# monkeys = parse_monkeys(data)
-# for r in range(1000):
-#     #print(r)
-#     for m in monkeys:
-#         m.do_turn(monkeys, 1)
+# part 2
+monkeys = parse_monkeys(data)
+modulus = lcm(*(monkey.test for monkey in monkeys))
+for r in range(10000):
+    for m in monkeys:
+        m.do_turn(monkeys, 1, modulus)
 
-# for m in monkeys:
-#     print(m)
+monkeys.sort(key=lambda x: x.inspect_count, reverse=True)
 
-# monkeys.sort(key=lambda x: x.inspect_count, reverse=True)
-
-# part_2_total = monkeys[0].inspect_count * monkeys[1].inspect_count
-# check_answer(part_2_total, 2713310158)
+part_2_total = monkeys[0].inspect_count * monkeys[1].inspect_count
+check_answer(part_2_total, 14081365540) # real: 14081365540 test: 2713310158
